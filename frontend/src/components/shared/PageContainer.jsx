@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "./header/Header";
+import Footer from "./footer/Footer";
 
 const PageContainer = ({ children }) => {
   return (
@@ -14,6 +15,7 @@ const PageContainer = ({ children }) => {
       <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
       </Box>
+      <Footer />
     </Box>
   );
 };

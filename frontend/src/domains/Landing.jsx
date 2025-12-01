@@ -6,7 +6,6 @@ import {
   FeaturesSection,
   HowItWorksSection,
   CTASection,
-  Footer,
 } from "../components/landing";
 
 const Landing = () => {
@@ -17,7 +16,6 @@ const Landing = () => {
       <FeaturesSection />
       <HowItWorksSection />
       <CTASection />
-      <Footer />
     </PageContainer>
   );
 };
