@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { SampleData } from "../components/home/mock/sample-data";
-import { Box, TextField, InputAdornment } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box } from "@mui/material";
 import { PageContainer } from "../components/shared";
-import { TabNavigation, StartupCard } from "../components/home";
+import { TabNavigation } from "../components/home";
+import StartupCard from "../components/home/StartupCard";
+import SearchField from "../components/home/SearchField";
 
 export default function Home() {
   const [connected, setConnected] = useState(false);
@@ -32,36 +33,9 @@ export default function Home() {
           />
 
           {activeTab === "search" && (
-            <TextField
-              fullWidth
-              placeholder="Search projects by title, description, or category..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon sx={{ color: "grey.400" }} />
-                  </InputAdornment>
-                ),
-                sx: {
-                  pl: 1,
-                  py: 0.5,
-                  borderRadius: "12px",
-                  bgcolor: "white",
-                  border: "1px solid grey.300",
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "black",
-                    borderWidth: "2px",
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "grey.400",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "transparent",
-                  },
-                },
-              }}
-              sx={{ mb: 5 }}
+            <SearchField
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
             />
           )}
 
