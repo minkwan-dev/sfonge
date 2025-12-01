@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SampleData } from "../components/home/mock/sample-data";
 import {
   Box,
   Typography,
@@ -70,46 +71,6 @@ const ProgressBar = ({ goal, raised, progress, investors }) => (
   </Box>
 );
 
-// Sample Data
-const SampleData = [
-  {
-    id: 1,
-    title: "AI 헬스케어 플랫폼",
-    founder: "0x1234...5678",
-    description: "AI 기반 개인 맞춤형 건강 관리 솔루션",
-    image: "https://placehold.co/600x400/1f2937/ffffff?text=AI+Healthcare",
-    goal: "50 ETH",
-    raised: "32.5 ETH",
-    progress: 65,
-    investors: 127,
-    category: "Healthcare",
-  },
-  {
-    id: 2,
-    title: "친환경 패키징 스타트업",
-    founder: "0xabcd...ef12",
-    description: "생분해 가능한 혁신적인 포장재 개발",
-    image: "https://placehold.co/600x400/4b5563/ffffff?text=Eco+Packaging",
-    goal: "30 ETH",
-    raised: "18.9 ETH",
-    progress: 63,
-    investors: 89,
-    category: "Sustainability",
-  },
-  {
-    id: 3,
-    title: "블록체인 공급망 관리",
-    founder: "0x9876...3210",
-    description: "투명한 공급망을 위한 블록체인 솔루션",
-    image: "https://placehold.co/600x400/9ca3af/ffffff?text=Blockchain+SCM",
-    goal: "100 ETH",
-    raised: "78.2 ETH",
-    progress: 78,
-    investors: 203,
-    category: "Blockchain",
-  },
-];
-
 export default function Home() {
   const theme = useTheme();
   const [connected, setConnected] = useState(false);
@@ -146,7 +107,7 @@ export default function Home() {
           minHeight: "100vh",
           bgcolor: "white",
           pt: { xs: "4rem", sm: "5rem" },
-          pb: { xs: "5rem", sm: "7.5rem" },
+          pb: { xs: "4rem", sm: "5rem" },
           px: 3,
         }}
       >
