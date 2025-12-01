@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { keyframes } from "@emotion/react";
+import { useGoHome } from "./hooks/useGoHome";
 
 const pulse = keyframes`
   0%, 100% { opacity: 1; }
@@ -9,6 +10,7 @@ const pulse = keyframes`
 `;
 
 const HeroSection = () => {
+  const goHome = useGoHome();
   return (
     <Box
       component="section"
@@ -100,7 +102,7 @@ const HeroSection = () => {
             }}
           >
             <Button
-              href="/app"
+              onClick={goHome}
               variant="contained"
               disableElevation
               sx={{
@@ -135,6 +137,7 @@ const HeroSection = () => {
             </Button>
 
             <Button
+              onClick={goHome}
               variant="outlined"
               sx={{
                 px: 4,

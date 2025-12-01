@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useGoHome } from "./hooks/useGoHome";
 
 const CtaSection = () => {
+  const goHome = useGoHome();
   return (
     <Box component="section" sx={{ py: { xs: 10, md: 16 }, px: 3 }}>
       <Box sx={{ maxWidth: "896px", mx: "auto", textAlign: "center" }}>
@@ -35,7 +37,7 @@ const CtaSection = () => {
             혁신적인 아이디어와 투자자를 연결하는 새로운 방법
           </Typography>
           <Button
-            href="/app"
+            onClick={goHome}
             disableElevation
             sx={{
               display: "inline-flex",
