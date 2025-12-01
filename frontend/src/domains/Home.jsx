@@ -9,13 +9,13 @@ import {
   InputAdornment,
   useTheme,
 } from "@mui/material";
-import WalletIcon from "@mui/icons-material/Wallet";
 import SendIcon from "@mui/icons-material/Send";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import GroupIcon from "@mui/icons-material/Group";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import { PageContainer } from "../components/shared";
+import { TabNavigation } from "../components/home";
 
 // Progress Bar
 const ProgressBar = ({ goal, raised, progress, investors }) => (
@@ -79,27 +79,6 @@ export default function Home() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Button Style
-  const btnStyle = (active) => ({
-    px: 3,
-    py: 1.5,
-    borderRadius: "12px",
-    fontWeight: "medium",
-    textTransform: "none",
-    transition: "all 0.2s",
-    ...(active
-      ? {
-          background: "linear-gradient(to right, #212121, #424242)",
-          color: "white",
-          boxShadow: theme.shadows[4],
-        }
-      : {
-          color: "grey.600",
-          borderColor: "grey.200",
-          "&:hover": { bgcolor: "grey.50", borderColor: "grey.300" },
-        }),
-  });
-
   return (
     <PageContainer>
       <Box
@@ -113,42 +92,13 @@ export default function Home() {
       >
         <Box sx={{ maxWidth: "1200px", mx: "auto", px: 3, pt: 4, pb: 8 }}>
           {/* tabs */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 5 }}>
-            <Button
-              onClick={() => {
-                setActiveTab("explore");
-                setSearchTerm("");
-              }}
-              variant={activeTab === "explore" ? "contained" : "outlined"}
-              disableElevation
-              sx={btnStyle(activeTab === "explore")}
-            >
-              Explore
-            </Button>
-            <Button
-              onClick={() => setActiveTab("search")}
-              variant={activeTab === "search" ? "contained" : "outlined"}
-              disableElevation
-              sx={btnStyle(activeTab === "search")}
-            >
-              Search
-            </Button>
-
-            <Box
-              sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 2 }}
-            >
-              <Button
-                onClick={() => setConnected(true)}
-                variant="contained"
-                disableElevation
-                sx={{ ...btnStyle(true), gap: 1, p: 1.5 }}
-              >
-                <WalletIcon sx={{ width: 16, height: 16 }} />
-                Connect Wallet
-              </Button>
-            </Box>
-          </Box>
-
+          <TabNavigation
+            connected={connected}
+            setConnected={setConnected}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            setSearchTerm={setSearchTerm}
+          />
           {/* search */}
           {activeTab === "search" && (
             <TextField
