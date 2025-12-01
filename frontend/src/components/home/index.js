@@ -1,3 +1,3 @@
 import TabNavigation from "./TabNavigation";
-
-export { TabNavigation };
+import StartupCard from "./StartupCard";
+export { TabNavigation, StartupCard };
