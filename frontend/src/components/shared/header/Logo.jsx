@@ -1,10 +1,25 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Typography, Box, Button } from "@mui/material";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 
 const Logo = () => {
+  const navigate = useNavigate();
+
+  const goLanding = () => {
+    navigate("/");
+  };
+
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+    <Box
+      onClick={goLanding}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 1.5,
+        cursor: "pointer",
+      }}
+    >
       <Box
         sx={{
           width: 40,
