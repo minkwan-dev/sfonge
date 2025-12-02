@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, useTheme } from "@mui/material";
 import WalletIcon from "@mui/icons-material/Wallet";
+import { connectWallet } from "../../utils/web3";
 
 const TabNavigation = ({
+  connected,
   setConnected,
   activeTab,
   setActiveTab,
   setSearchTerm,
 }) => {
   const theme = useTheme();
+  const [walletAddress, setWalletAddress] = useState("");
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const btnStyle = (active) => ({
     px: 3,
@@ -29,6 +33,24 @@ const TabNavigation = ({
           "&:hover": { bgcolor: "grey.50", borderColor: "grey.300" },
         }),
   });
+
+  const handleConnectWallet = async () => {
+    setIsConnecting(true);
+    try {
+      const address = await connectWallet();
+      setWalletAddress(address);
+      setConnected(true);
+    } catch (error) {
+      alert(error.message || "지갑 연결에 실패했습니다.");
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  const formatAddress = (address) => {
+    if (!address) return "";
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 5 }}>
@@ -55,13 +77,18 @@ const TabNavigation = ({
 
       <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 2 }}>
         <Button
-          onClick={() => setConnected(true)}
+          onClick={handleConnectWallet}
           variant="contained"
           disableElevation
+          disabled={isConnecting || connected}
           sx={{ ...btnStyle(true), gap: 1, p: 1.5 }}
         >
           <WalletIcon sx={{ width: 16, height: 16 }} />
-          Connect Wallet
+          {isConnecting
+            ? "연결 중..."
+            : connected
+            ? formatAddress(walletAddress)
+            : "Connect Wallet"}
         </Button>
       </Box>
     </Box>
