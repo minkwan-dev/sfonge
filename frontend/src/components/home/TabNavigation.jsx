@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, useTheme } from "@mui/material";
 import WalletIcon from "@mui/icons-material/Wallet";
 import { connectWallet } from "../../utils/web3";
+import { useNavigate } from "react-router-dom";
 
 const TabNavigation = ({
   connected,
@@ -11,6 +12,7 @@ const TabNavigation = ({
   setSearchTerm,
 }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [walletAddress, setWalletAddress] = useState("");
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -52,6 +54,10 @@ const TabNavigation = ({
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
 
+  const handleCreateProject = () => {
+    navigate("/create-project");
+  };
+
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 5 }}>
       <Button
@@ -65,7 +71,6 @@ const TabNavigation = ({
       >
         탐색 모드
       </Button>
-
       <Button
         onClick={() => setActiveTab("search")}
         variant={activeTab === "search" ? "contained" : "outlined"}
@@ -76,20 +81,36 @@ const TabNavigation = ({
       </Button>
 
       <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 2 }}>
-        <Button
-          onClick={handleConnectWallet}
-          variant="contained"
-          disableElevation
-          disabled={isConnecting || connected}
-          sx={{ ...btnStyle(true), gap: 1, p: 1.5 }}
-        >
-          <WalletIcon sx={{ width: 16, height: 16 }} />
-          {isConnecting
-            ? "연결 중..."
-            : connected
-            ? formatAddress(walletAddress)
-            : "지갑 연결하기"}
-        </Button>
+        {!connected ? (
+          <Button
+            onClick={handleConnectWallet}
+            variant="contained"
+            disableElevation
+            disabled={isConnecting}
+            sx={{ ...btnStyle(true), gap: 1, p: 1.5 }}
+          >
+            <WalletIcon sx={{ width: 16, height: 16 }} />
+            {isConnecting ? "연결 중..." : "지갑 연결하기"}
+          </Button>
+        ) : (
+          <>
+            <Button
+              variant="contained"
+              sx={{ ...btnStyle(true), gap: 1, p: 1.5 }}
+            >
+              <WalletIcon sx={{ width: 16, height: 16 }} />
+              {formatAddress(walletAddress)}
+            </Button>
+
+            <Button
+              onClick={handleCreateProject}
+              variant="outlined"
+              sx={{ ...btnStyle(false) }}
+            >
+              프로젝트 생성하기
+            </Button>
+          </>
+        )}
       </Box>
     </Box>
   );

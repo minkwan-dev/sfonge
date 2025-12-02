@@ -33,6 +33,7 @@ const ProgressBar = ({ goal, raised, progress, investors }) => (
         {progress}%
       </Typography>
     </Box>
+
     <LinearProgress
       variant="determinate"
       value={progress}
@@ -46,6 +47,7 @@ const ProgressBar = ({ goal, raised, progress, investors }) => (
         },
       }}
     />
+
     <Box
       sx={{
         display: "flex",
@@ -80,10 +82,8 @@ const StartupCard = ({ startup, connected }) => {
   };
 
   const handleInvestConfirm = async () => {
-    if (!investAmount || parseFloat(investAmount) <= 0) {
-      alert("올바른 투자 금액을 입력해주세요.");
-      return;
-    }
+    if (!investAmount || parseFloat(investAmount) <= 0)
+      return alert("올바른 투자 금액을 입력해주세요.");
 
     setIsInvesting(true);
     try {
@@ -158,15 +158,16 @@ const StartupCard = ({ startup, connected }) => {
         <Typography variant="h6" fontWeight="semibold" mb={0.5}>
           {startup.title}
         </Typography>
+
         <Typography variant="body2" color="grey.600" mb={3}>
           {startup.description}
         </Typography>
 
         <ProgressBar
-          goal={startup.goal}
-          raised={startup.raised}
+          goal={startup.goalAmount}
+          raised={startup.raisedAmount}
           progress={startup.progress}
-          investors={startup.investors}
+          investors={startup.investorCount}
         />
 
         <Box
@@ -183,7 +184,7 @@ const StartupCard = ({ startup, connected }) => {
             color="grey.500"
             sx={{ fontFamily: "monospace" }}
           >
-            {startup.founder}
+            {startup.owner}
           </Typography>
 
           <Box sx={{ display: "flex", gap: 1 }}>
@@ -207,6 +208,7 @@ const StartupCard = ({ startup, connected }) => {
               <SportsScoreIcon sx={{ width: 16, height: 16 }} />
               Interested
             </Button>
+
             <Button
               disabled={!connected}
               variant="contained"
@@ -266,6 +268,7 @@ const StartupCard = ({ startup, connected }) => {
             />
           </Box>
         </DialogContent>
+
         <DialogActions sx={{ px: 3, pb: 2 }}>
           <Button
             onClick={handleInvestCancel}
@@ -286,6 +289,7 @@ const StartupCard = ({ startup, connected }) => {
           >
             취소
           </Button>
+
           <Button
             onClick={handleInvestConfirm}
             variant="contained"
