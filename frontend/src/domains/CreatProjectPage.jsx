@@ -3,7 +3,22 @@ import { Box, Button, TextField, Typography, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { PageContainer, ComponentWrapper } from "../components/shared";
 
-const categories = ["테크", "헬스케어", "교육", "게임", "기타"];
+const categories = [
+  "EdTech",
+  "FinTech",
+  "DeepTech",
+  "Blockchain",
+  "Agriculture",
+  "Platform",
+  "Sustainability",
+  "Healthcare",
+  "Aerospace",
+  "Entertainment",
+  "Robotics",
+  "FoodTech",
+  "Mobility",
+  "기타",
+];
 
 const CreateProjectPage = () => {
   const navigate = useNavigate();
@@ -47,6 +62,17 @@ const CreateProjectPage = () => {
     "&:hover": {
       background: "linear-gradient(to right, #424242, #616161)",
     },
+  };
+
+  const MenuProps = {
+    disableScrollLock: true,
+    PaperProps: {
+      sx: {
+        borderRadius: "12px",
+        mt: 0.5,
+      },
+    },
+    disablePortal: true,
   };
 
   return (
@@ -97,9 +123,16 @@ const CreateProjectPage = () => {
             sx={inputStyle}
             required
             placeholder="프로젝트가 어떤 분야에 해당되나요?"
+            SelectProps={{
+              MenuProps: MenuProps,
+            }}
           >
             {categories.map((cat) => (
-              <MenuItem key={cat} value={cat}>
+              <MenuItem
+                key={cat}
+                value={cat}
+                sx={{ borderRadius: "8px", mx: 1, my: 0.5 }}
+              >
                 {cat}
               </MenuItem>
             ))}
