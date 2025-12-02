@@ -1,5 +1,7 @@
 const { ethers } = require("ethers");
 const hre = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
 async function main() {
   const artifacts = await hre.artifacts.readArtifact("Crowdfunding");
@@ -12,6 +14,21 @@ async function main() {
   const factory = new ethers.ContractFactory(abi, bytecode, deployer);
   const crowdfunding = await factory.deploy();
   await crowdfunding.waitForDeployment();
+
+  const contractData = {
+    address: crowdfunding.target,
+    abi: abi,
+  };
+
+  const frontendPath = path.join(__dirname, "../frontend/src/utils");
+  if (!fs.existsSync(frontendPath)) {
+    fs.mkdirSync(frontendPath, { recursive: true });
+  }
+
+  fs.writeFileSync(
+    path.join(frontendPath, "contract.json"),
+    JSON.stringify(contractData, null, 2)
+  );
 }
 
 main()
