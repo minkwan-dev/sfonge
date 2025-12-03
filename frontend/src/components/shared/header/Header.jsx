@@ -7,13 +7,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Logo } from "./index";
 import { isConnectedAtom, accountAtom } from "../../../store/walletAtom";
 import { connectWallet } from "../../../utils/web3";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isConnected, setIsConnected] = useAtom(isConnectedAtom);
   const [account, setAccount] = useAtom(accountAtom);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const navigate = useNavigate();
 
   const handleMenuClick = (event) => {
     if (isConnected) {
@@ -30,6 +32,7 @@ const Header = () => {
       const address = await connectWallet();
       setAccount(address);
       setIsConnected(true);
+      navigate("/home");
     } catch (error) {
       console.error("Connection error:", error);
       alert(error.message || "지갑 연결 중 오류가 발생했습니다.");
@@ -40,6 +43,7 @@ const Header = () => {
     setAccount(null);
     setIsConnected(false);
     handleMenuClose();
+    navigate("/");
   };
 
   const accountDisplay = account

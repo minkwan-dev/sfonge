@@ -1,8 +1,11 @@
 import React from "react";
 import { Box, Button, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai/react";
+import { isConnectedAtom } from "../../store/walletAtom";
 
 const TabNavigation = ({ activeTab, setActiveTab, setSearchTerm }) => {
+  const [isConnected] = useAtom(isConnectedAtom);
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -56,6 +59,7 @@ const TabNavigation = ({ activeTab, setActiveTab, setSearchTerm }) => {
         <Button
           onClick={handleCreateProject}
           variant="outlined"
+          disabled={!isConnected}
           sx={{ ...btnStyle(false) }}
         >
           프로젝트 생성하기
