@@ -15,6 +15,8 @@ import SendIcon from "@mui/icons-material/Send";
 import GroupIcon from "@mui/icons-material/Group";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import { investInProject } from "../../utils/contract-interactions";
+import { useAtom } from "jotai/react";
+import { isConnectedAtom } from "../../store/walletAtom";
 
 const ProgressBar = ({ goal, raised, progress, investors }) => (
   <Box sx={{ width: "100%", mb: 2 }}>
@@ -71,8 +73,9 @@ const ProgressBar = ({ goal, raised, progress, investors }) => (
   </Box>
 );
 
-const StartupCard = ({ startup, connected }) => {
+const StartupCard = ({ startup }) => {
   const theme = useTheme();
+  const [isConnected] = useAtom(isConnectedAtom);
   const [openInvestDialog, setOpenInvestDialog] = useState(false);
   const [investAmount, setInvestAmount] = useState("");
   const [isInvesting, setIsInvesting] = useState(false);
@@ -167,7 +170,7 @@ const StartupCard = ({ startup, connected }) => {
           goal={startup.goalAmount}
           raised={startup.raisedAmount}
           progress={startup.progress}
-          investors={startup.investorCount}
+          investors={startup.investors}
         />
 
         <Box
@@ -189,7 +192,7 @@ const StartupCard = ({ startup, connected }) => {
 
           <Box sx={{ display: "flex", gap: 1 }}>
             <Button
-              disabled={!connected}
+              disabled={!isConnected}
               variant="outlined"
               disableElevation
               sx={{
@@ -202,7 +205,7 @@ const StartupCard = ({ startup, connected }) => {
                 textTransform: "none",
                 borderColor: "grey.200",
                 color: "grey.700",
-                opacity: !connected ? 0.5 : 1,
+                opacity: !isConnected ? 0.5 : 1,
               }}
             >
               <SportsScoreIcon sx={{ width: 16, height: 16 }} />
@@ -210,7 +213,7 @@ const StartupCard = ({ startup, connected }) => {
             </Button>
 
             <Button
-              disabled={!connected}
+              disabled={!isConnected}
               variant="contained"
               disableElevation
               onClick={handleInvestClick}
@@ -222,10 +225,10 @@ const StartupCard = ({ startup, connected }) => {
                 fontSize: "0.875rem",
                 fontWeight: "semibold",
                 textTransform: "none",
-                background: connected
+                background: isConnected
                   ? "linear-gradient(to right, #212121, #424242)"
                   : "grey.100",
-                color: connected ? "white" : "grey.400",
+                color: isConnected ? "white" : "grey.400",
               }}
             >
               <SendIcon sx={{ width: 16, height: 16 }} />
